@@ -59,7 +59,15 @@ def document(request, doc_id):
         4: 'client'
     }
 
-    if doc_id in doc_map:
+    if doc_id == 1:
+        # For passport document, use the passport view
+        return passport(request)
+    elif doc_id == 3:
+        # For document 3, pass the entire documents data
+        return render(request, f'viewer/document_{doc_id}.html', {
+            'document_data': docs_data
+        })
+    elif doc_id in doc_map:
         section = doc_map[doc_id]
         if section in docs_data:
             return render(request, f'viewer/document_{doc_id}.html', {
