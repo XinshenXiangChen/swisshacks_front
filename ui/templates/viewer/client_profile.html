@@ -8,9 +8,9 @@
     <div class="profile-header">
         <div class="header-title">
             <h1>Client Profile</h1>
-            <div class="document-id">ID: {{ client_profile.fields.client_id|default:"" }}</div>
+            <div class="document-id">ID: {{ client_profile_data.personal_info.first_name|default:"" }} {{ client_profile_data.personal_info.last_name|default:"" }}</div>
         </div>
-        <div class="last-update">Last Updated: {{ client_profile.fields.last_update|default:"" }}</div>
+        <div class="last-update">Last Updated: {{ client_profile_data.personal_info.date_of_birth|default:"" }}</div>
     </div>
 
     <div class="profile-content">
@@ -19,31 +19,45 @@
             <h2 class="section-title">Personal Information</h2>
             <div class="info-grid">
                 <div class="info-group">
-                    <div class="info-label">Full Name</div>
-                    <div class="info-value {% if field_status.full_name == 0 %}error-field{% endif %}"
-                         {% if field_status.full_name == 0 %}data-tooltip="We have found a Full Name discrepancy"{% endif %}>
-                        {{ client_profile.fields.full_name|default:"" }}
+                    <div class="info-label">Title</div>
+                    <div class="info-value {% if field_status.personal_info == 0 %}error-field{% endif %}"
+                         {% if field_status.personal_info == 0 %}data-tooltip="We have found a Personal Information discrepancy"{% endif %}>
+                        {{ client_profile_data.personal_info.title|default:"" }}
+                    </div>
+                </div>
+                <div class="info-group">
+                    <div class="info-label">First Name</div>
+                    <div class="info-value {% if field_status.personal_info == 0 %}error-field{% endif %}"
+                         {% if field_status.personal_info == 0 %}data-tooltip="We have found a Personal Information discrepancy"{% endif %}>
+                        {{ client_profile_data.personal_info.first_name|default:"" }}
+                    </div>
+                </div>
+                <div class="info-group">
+                    <div class="info-label">Last Name</div>
+                    <div class="info-value {% if field_status.personal_info == 0 %}error-field{% endif %}"
+                         {% if field_status.personal_info == 0 %}data-tooltip="We have found a Personal Information discrepancy"{% endif %}>
+                        {{ client_profile_data.personal_info.last_name|default:"" }}
                     </div>
                 </div>
                 <div class="info-group">
                     <div class="info-label">Date of Birth</div>
-                    <div class="info-value {% if field_status.birth_date == 0 %}error-field{% endif %}"
-                         {% if field_status.birth_date == 0 %}data-tooltip="We have found a Birth Date discrepancy"{% endif %}>
-                        {{ client_profile.fields.birth_date|default:"" }}
+                    <div class="info-value {% if field_status.personal_info == 0 %}error-field{% endif %}"
+                         {% if field_status.personal_info == 0 %}data-tooltip="We have found a Personal Information discrepancy"{% endif %}>
+                        {{ client_profile_data.personal_info.date_of_birth|default:"" }}
                     </div>
                 </div>
                 <div class="info-group">
                     <div class="info-label">Nationality</div>
-                    <div class="info-value {% if field_status.nationality == 0 %}error-field{% endif %}"
-                         {% if field_status.nationality == 0 %}data-tooltip="We have found a Nationality discrepancy"{% endif %}>
-                        {{ client_profile.fields.nationality|default:"" }}
+                    <div class="info-value {% if field_status.personal_info == 0 %}error-field{% endif %}"
+                         {% if field_status.personal_info == 0 %}data-tooltip="We have found a Personal Information discrepancy"{% endif %}>
+                        {{ client_profile_data.personal_info.nationality|default:"" }}
                     </div>
                 </div>
                 <div class="info-group">
                     <div class="info-label">Tax Residence</div>
-                    <div class="info-value {% if field_status.tax_residence == 0 %}error-field{% endif %}"
-                         {% if field_status.tax_residence == 0 %}data-tooltip="We have found a Tax Residence discrepancy"{% endif %}>
-                        {{ client_profile.fields.tax_residence|default:"" }}
+                    <div class="info-value {% if field_status.personal_info == 0 %}error-field{% endif %}"
+                         {% if field_status.personal_info == 0 %}data-tooltip="We have found a Personal Information discrepancy"{% endif %}>
+                        {{ client_profile_data.personal_info.tax_residence|default:"" }}
                     </div>
                 </div>
             </div>
@@ -54,24 +68,27 @@
             <h2 class="section-title">Contact Information</h2>
             <div class="info-grid">
                 <div class="info-group full-width">
-                    <div class="info-label">Residential Address</div>
-                    <div class="info-value {% if field_status.residential_address == 0 %}error-field{% endif %}"
-                         {% if field_status.residential_address == 0 %}data-tooltip="We have found a Residential Address discrepancy"{% endif %}>
-                        {{ client_profile.fields.residential_address|default:"" }}
+                    <div class="info-label">Address</div>
+                    <div class="info-value {% if field_status.contact_info == 0 %}error-field{% endif %}"
+                         {% if field_status.contact_info == 0 %}data-tooltip="We have found a Contact Information discrepancy"{% endif %}>
+                        {{ client_profile_data.contact_info.address.street|default:"" }}, 
+                        {{ client_profile_data.contact_info.address.city|default:"" }}, 
+                        {{ client_profile_data.contact_info.address.postal_code|default:"" }}, 
+                        {{ client_profile_data.contact_info.address.country|default:"" }}
                     </div>
                 </div>
                 <div class="info-group">
                     <div class="info-label">Phone Number</div>
-                    <div class="info-value {% if field_status.phone == 0 %}error-field{% endif %}"
-                         {% if field_status.phone == 0 %}data-tooltip="We have found a Phone Number discrepancy"{% endif %}>
-                        {{ client_profile.fields.phone|default:"" }}
+                    <div class="info-value {% if field_status.contact_info == 0 %}error-field{% endif %}"
+                         {% if field_status.contact_info == 0 %}data-tooltip="We have found a Contact Information discrepancy"{% endif %}>
+                        {{ client_profile_data.contact_info.phone|default:"" }}
                     </div>
                 </div>
                 <div class="info-group">
                     <div class="info-label">Email</div>
-                    <div class="info-value {% if field_status.email == 0 %}error-field{% endif %}"
-                         {% if field_status.email == 0 %}data-tooltip="We have found an Email discrepancy"{% endif %}>
-                        {{ client_profile.fields.email|default:"" }}
+                    <div class="info-value {% if field_status.contact_info == 0 %}error-field{% endif %}"
+                         {% if field_status.contact_info == 0 %}data-tooltip="We have found a Contact Information discrepancy"{% endif %}>
+                        {{ client_profile_data.contact_info.email|default:"" }}
                     </div>
                 </div>
             </div>
@@ -83,30 +100,30 @@
             <div class="info-grid">
                 <div class="info-group">
                     <div class="info-label">Occupation</div>
-                    <div class="info-value {% if field_status.occupation == 0 %}error-field{% endif %}"
-                         {% if field_status.occupation == 0 %}data-tooltip="We have found an Occupation discrepancy"{% endif %}>
-                        {{ client_profile.fields.occupation|default:"" }}
+                    <div class="info-value {% if field_status.professional_info == 0 %}error-field{% endif %}"
+                         {% if field_status.professional_info == 0 %}data-tooltip="We have found a Professional Information discrepancy"{% endif %}>
+                        {{ client_profile_data.professional_info.occupation|default:"" }}
                     </div>
                 </div>
                 <div class="info-group">
                     <div class="info-label">Employer</div>
-                    <div class="info-value {% if field_status.employer == 0 %}error-field{% endif %}"
-                         {% if field_status.employer == 0 %}data-tooltip="We have found an Employer discrepancy"{% endif %}>
-                        {{ client_profile.fields.employer|default:"" }}
+                    <div class="info-value {% if field_status.professional_info == 0 %}error-field{% endif %}"
+                         {% if field_status.professional_info == 0 %}data-tooltip="We have found a Professional Information discrepancy"{% endif %}>
+                        {{ client_profile_data.professional_info.employer|default:"" }}
                     </div>
                 </div>
                 <div class="info-group">
                     <div class="info-label">Annual Income</div>
-                    <div class="info-value {% if field_status.annual_income == 0 %}error-field{% endif %}"
-                         {% if field_status.annual_income == 0 %}data-tooltip="We have found an Annual Income discrepancy"{% endif %}>
-                        {{ client_profile.fields.annual_income|default:"" }}
+                    <div class="info-value {% if field_status.professional_info == 0 %}error-field{% endif %}"
+                         {% if field_status.professional_info == 0 %}data-tooltip="We have found a Professional Information discrepancy"{% endif %}>
+                        {{ client_profile_data.professional_info.annual_income|default:"" }}
                     </div>
                 </div>
                 <div class="info-group">
-                    <div class="info-label">Source of Wealth</div>
-                    <div class="info-value {% if field_status.source_of_wealth == 0 %}error-field{% endif %}"
-                         {% if field_status.source_of_wealth == 0 %}data-tooltip="We have found a Source of Wealth discrepancy"{% endif %}>
-                        {{ client_profile.fields.source_of_wealth|default:"" }}
+                    <div class="info-label">Employment Status</div>
+                    <div class="info-value {% if field_status.professional_info == 0 %}error-field{% endif %}"
+                         {% if field_status.professional_info == 0 %}data-tooltip="We have found a Professional Information discrepancy"{% endif %}>
+                        {{ client_profile_data.professional_info.employment_status|default:"" }}
                     </div>
                 </div>
             </div>
@@ -118,23 +135,30 @@
             <div class="info-grid">
                 <div class="info-group">
                     <div class="info-label">Risk Tolerance</div>
-                    <div class="info-value {% if field_status.risk_tolerance == 0 %}error-field{% endif %}"
-                         {% if field_status.risk_tolerance == 0 %}data-tooltip="We have found a Risk Tolerance discrepancy"{% endif %}>
-                        {{ client_profile.fields.risk_tolerance|default:"" }}
+                    <div class="info-value {% if field_status.investment_profile == 0 %}error-field{% endif %}"
+                         {% if field_status.investment_profile == 0 %}data-tooltip="We have found an Investment Profile discrepancy"{% endif %}>
+                        {{ client_profile_data.investment_profile.risk_tolerance|default:"" }}
                     </div>
                 </div>
                 <div class="info-group">
                     <div class="info-label">Investment Horizon</div>
-                    <div class="info-value {% if field_status.investment_horizon == 0 %}error-field{% endif %}"
-                         {% if field_status.investment_horizon == 0 %}data-tooltip="We have found an Investment Horizon discrepancy"{% endif %}>
-                        {{ client_profile.fields.investment_horizon|default:"" }}
+                    <div class="info-value {% if field_status.investment_profile == 0 %}error-field{% endif %}"
+                         {% if field_status.investment_profile == 0 %}data-tooltip="We have found an Investment Profile discrepancy"{% endif %}>
+                        {{ client_profile_data.investment_profile.investment_horizon|default:"" }}
+                    </div>
+                </div>
+                <div class="info-group">
+                    <div class="info-label">Investment Objective</div>
+                    <div class="info-value {% if field_status.investment_profile == 0 %}error-field{% endif %}"
+                         {% if field_status.investment_profile == 0 %}data-tooltip="We have found an Investment Profile discrepancy"{% endif %}>
+                        {{ client_profile_data.investment_profile.investment_objective|default:"" }}
                     </div>
                 </div>
                 <div class="info-group">
                     <div class="info-label">Investment Experience</div>
-                    <div class="info-value {% if field_status.investment_experience == 0 %}error-field{% endif %}"
-                         {% if field_status.investment_experience == 0 %}data-tooltip="We have found an Investment Experience discrepancy"{% endif %}>
-                        {{ client_profile.fields.investment_experience|default:"" }}
+                    <div class="info-value {% if field_status.investment_profile == 0 %}error-field{% endif %}"
+                         {% if field_status.investment_profile == 0 %}data-tooltip="We have found an Investment Profile discrepancy"{% endif %}>
+                        {{ client_profile_data.investment_profile.investment_experience|default:"" }}
                     </div>
                 </div>
             </div>
@@ -332,4 +356,4 @@
         }
     }
 </style>
-{% endblock %}
+{% endblock %} 

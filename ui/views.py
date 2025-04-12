@@ -87,3 +87,18 @@ def passport(request):
         'passport_data': passport_data,
         'field_status': field_status,
     })
+
+def client_profile(request):
+    docs_data = get_documents_data()
+    if docs_data and 'client_profiles' in docs_data:
+        client_profile_data = docs_data['client_profiles']['fields']
+        field_status = docs_data['client_profiles']['validation']
+    else:
+        client_profile_data = {}
+        field_status = {}
+    
+    return render(request, 'viewer/document_2.html', {
+        'client_profile_data': client_profile_data,
+        'field_status': field_status,
+    })
+        
