@@ -1,39 +1,40 @@
 {% extends 'viewer/document_base.html' %}
 
 {% block document_title %}Document 4{% endblock %}
+{% load static %}
 
 {% block document_content %}
-{% if document_data %}
-    <div class="row">
-        <div class="col-12 mb-4">
-            <div class="document-accordion">
-                <div class="document-accordion-header">
-                    <h5>Document Content</h5>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="construction-container">
+                <div class="image-container">
+                    <img src="{% static 'images/crane.svg' %}" alt="Construction Crane" class="construction-image mb-4">
                 </div>
-                <div class="document-accordion-body">
-                    <div class="accordion" id="documentAccordion">
-                        {% for key, value in document_data.items %}
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-                                <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="collapse{{ forloop.counter }}">
-                                    {{ key }}
-                                </button>
-                            </h2>
-                            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#documentAccordion">
-                                <div class="accordion-body">
-                                    {{ value }}
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
+                <h2 class="mb-3">Page Under Construction</h2>
+                <p class="text-muted">We're working hard to build this page. Please check back later!</p>
             </div>
         </div>
     </div>
-{% else %}
-    <div class="alert alert-info">
-        No data available for this document.
-    </div>
-{% endif %}
+</div>
+
+<style>
+    .construction-container {
+        padding: 2rem;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .image-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto 20px;
+        padding: 20px;
+    }
+    .construction-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+</style>
 {% endblock %} 
