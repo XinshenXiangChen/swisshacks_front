@@ -399,28 +399,27 @@
     <!-- Sidebar -->
     <nav class="sidebar">
         <div class="sidebar-header">
-            <h3>Julius Baer</h3>
-        </div>
-        <div class="nav flex-column">
             <a href="{% url 'ui:home' %}" class="nav-item nav-link">
                 <i class="fas fa-home"></i>
-                <span>Home</span>
+                <h3>Julius Baer</h3>
             </a>
+        </div>
+        <div class="nav flex-column">
             <a href="{% url 'ui:document' 1 %}" class="nav-item nav-link">
-                <i class="fas fa-file-alt"></i>
-                <span>Document 1</span>
+                <i class="fas fa-file-image"></i>
+                <span>Passport</span>
             </a>
             <a href="{% url 'ui:document' 2 %}" class="nav-item nav-link">
-                <i class="fas fa-file-pdf"></i>
-                <span>Document 2</span>
+                <i class="fas fa-file-word"></i>
+                <span>Client Profile</span>
             </a>
             <a href="{% url 'ui:document' 3 %}" class="nav-item nav-link">
-                <i class="fas fa-file-image"></i>
-                <span>Document 3</span>
+                <i class="fas fa-file-pdf"></i>
+                <span>Account Opening Form</span>
             </a>
             <a href="{% url 'ui:document' 4 %}" class="nav-item nav-link">
-                <i class="fas fa-file-code"></i>
-                <span>Document 4</span>
+                <i class="fas fa-file-text"></i>
+                <span>Client Description</span>
             </a>
         </div>
     </nav>
