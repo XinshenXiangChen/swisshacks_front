@@ -1,0 +1,33 @@
+{% extends 'viewer/document_base.html' %}
+
+{% block document_title %}Document 2{% endblock %}
+
+{% block document_content %}
+{% if document_data %}
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="document-info">
+                <div class="document-info-header">
+                    <h5>Document Information</h5>
+                </div>
+                <div class="document-info-body">
+                    <div class="row">
+                        {% for key, value in document_data.items %}
+                        <div class="col-md-6 mb-3">
+                            <div class="document-info-item">
+                                <strong>{{ key }}:</strong>
+                                <span>{{ value }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        No data available for this document.
+    </div>
+{% endif %}
+{% endblock %}
