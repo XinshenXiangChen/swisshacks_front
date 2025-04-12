@@ -1,5 +1,5 @@
 """
-WSGI config for config project.
+WSGI sad for sad project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
