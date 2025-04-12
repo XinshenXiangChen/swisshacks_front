@@ -1,22 +1,278 @@
 {% extends 'viewer/document_base.html' %}
+{% load static %}
 
-{% block document_title %}Document 1{% endblock %}
+{% block document_title %}Passport{% endblock %}
 
 {% block document_content %}
-{% if document_data %}
-    <div class="row">
-        {% for key, value in document_data.items %}
-        <div class="col-md-6 mb-3">
-            <div class="document-item">
-                <h5 class="document-item-title">{{ key }}</h5>
-                <p class="document-item-value">{{ value }}</p>
+<div class="passport-container">
+    <div class="passport-header">
+        <div class="passport-country">SUOMEN TASAVALTA / Republic of Finland</div>
+        <div class="passport-type">
+            <div>PASSPORT</div>
+            <div>MATKAKIRJA</div>
+        </div>
+        <div class="passport-info">
+            <div class="info-group">
+                <div class="info-label">Code</div>
+                <div class="info-value {% if field_status.code == 0 %}error-field{% endif %}">
+                    {{ passport_data.code|default:"" }}
+                </div>
+            </div>
+            <div class="info-group">
+                <div class="info-label">Passport No.</div>
+                <div class="info-value {% if field_status.passport_no == 0 %}error-field{% endif %}">
+                    {{ passport_data.passport_no|default:"" }}
+                </div>
             </div>
         </div>
-        {% endfor %}
     </div>
-{% else %}
-    <div class="alert alert-info">
-        No data available for this document.
+
+    <div class="passport-body">
+        <div class="passport-data">
+            <div class="data-row">
+                <div class="data-group">
+                    <div class="data-label">Surname</div>
+                    <div class="data-value {% if field_status.surname == 0 %}error-field{% endif %}">
+                        {{ passport_data.surname|default:"" }}
+                    </div>
+                </div>
+                <div class="data-group">
+                    <div class="data-label">Given Name(s)</div>
+                    <div class="data-value {% if field_status.given_names == 0 %}error-field{% endif %}">
+                        {{ passport_data.given_names|default:"" }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-row">
+                <div class="data-group">
+                    <div class="data-label">Birth Date</div>
+                    <div class="data-value {% if field_status.birth_date == 0 %}error-field{% endif %}">
+                        {{ passport_data.birth_date|default:"" }}
+                    </div>
+                </div>
+                <div class="data-group">
+                    <div class="data-label">Citizenship</div>
+                    <div class="data-value {% if field_status.citizenship == 0 %}error-field{% endif %}">
+                        {{ passport_data.citizenship|default:"" }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-row">
+                <div class="data-group">
+                    <div class="data-label">Sex</div>
+                    <div class="data-value {% if field_status.sex == 0 %}error-field{% endif %}">
+                        {{ passport_data.sex|default:"" }}
+                    </div>
+                </div>
+                <div class="data-group">
+                    <div class="data-label">Issue Date</div>
+                    <div class="data-value {% if field_status.issue_date == 0 %}error-field{% endif %}">
+                        {{ passport_data.issue_date|default:"" }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-row">
+                <div class="data-group full-width">
+                    <div class="data-label">Expiry Date</div>
+                    <div class="data-value {% if field_status.expiry_date == 0 %}error-field{% endif %}">
+                        {{ passport_data.expiry_date|default:"" }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="passport-photo">
+            <div class="photo-placeholder">
+                {% if passport_data.sex %}
+                    {% if passport_data.sex == "M" %}
+                        <img src="{% static 'images/men_icon.png' %}" alt="Male icon" class="gender-icon">
+                    {% else %}
+                        <img src="{% static 'images/women_icon.png' %}" alt="Female icon" class="gender-icon">
+                    {% endif %}
+                {% else %}
+                    <img src="{% static 'images/non_icon.png' %}" alt="Neutral icon" class="gender-icon">
+                {% endif %}
+            </div>
+            <div class="signature">
+                {% if passport_data.signature %}
+                    <img src="{{ passport_data.signature }}" alt="Holder's signature" class="signature-image">
+                {% else %}
+                    <div class="signature-placeholder">
+                        <i class="fas fa-signature fa-2x"></i>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
-{% endif %}
+
+    <div class="passport-footer">
+        <div class="mrz-code {% if field_status.mrz == 0 %}error-field{% endif %}">
+            {{ passport_data.mrz|default:"" }}
+        </div>
+        <div class="mrz-code {% if field_status.mrz2 == 0 %}error-field{% endif %}">
+            {{ passport_data.mrz2|default:"" }}
+        </div>
+    </div>
+</div>
+
+<style>
+    .passport-container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        font-family: 'Courier New', monospace;
+    }
+
+    .passport-header {
+        border-bottom: 2px solid #1a2a6c;
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .passport-country {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #1a2a6c;
+        margin-bottom: 1rem;
+    }
+
+    .passport-type {
+        display: flex;
+        gap: 1rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .passport-info {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    .info-group, .data-group {
+        flex: 1;
+    }
+
+    .info-label, .data-label {
+        font-size: 0.8rem;
+        color: #666;
+        margin-bottom: 0.25rem;
+    }
+
+    .info-value, .data-value {
+        font-weight: bold;
+        padding: 0.25rem 0;
+    }
+
+    .passport-body {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .passport-data {
+        flex: 2;
+    }
+
+    .data-row {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .passport-photo {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .photo-placeholder {
+        aspect-ratio: 3/4;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+
+    .gender-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        max-height: 150px;
+    }
+
+    .signature {
+        height: 60px;
+        border-bottom: 1px solid #1a2a6c;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 0.5rem;
+    }
+
+    .signature-image {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .signature-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        color: #6c757d;
+    }
+
+    .passport-footer {
+        border-top: 2px solid #1a2a6c;
+        padding-top: 1rem;
+    }
+
+    .mrz-code {
+        font-family: 'Courier New', monospace;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+    }
+
+    .error-field {
+        color: var(--danger-color);
+        background-color: rgba(220, 53, 69, 0.1);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+    }
+
+    @media (max-width: 768px) {
+        .passport-body {
+            flex-direction: column;
+        }
+
+        .data-row {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .passport-info {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+</style>
 {% endblock %}

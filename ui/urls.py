@@ -5,5 +5,6 @@ app_name = 'ui'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('document/<int:doc_id>/', views.document_view, name='document'),
+    path('document/1/', views.passport, name='passport'),
+    path('document/<int:doc_id>/', views.document, name='document'),
 ] 
