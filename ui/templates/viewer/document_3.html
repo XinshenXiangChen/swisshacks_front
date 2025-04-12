@@ -1,38 +1,192 @@
 {% extends 'viewer/document_base.html' %}
 
-{% block document_title %}Document 3{% endblock %}
+{% block document_title %}Account Opening Form{% endblock %}
+    {% load static %}
 
 {% block document_content %}
 {% if document_data %}
-    <div class="row">
-        <div class="col-12 mb-4">
-            <div class="document-table">
-                <div class="document-table-header">
-                    <h5>Document Details</h5>
-                </div>
-                <div class="document-table-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Field</th>
-                                    <th>Value</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for key, value in document_data.items %}
-                                <tr>
-                                    <td><strong>{{ key }}</strong></td>
-                                    <td>{{ value }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+    <style>
+        .checkbox-container {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        .signature-box {
+            border: 1px solid #000;
+            height: 100px;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .invalid-field {
+            background-color: #f8d7da;
+        }
+        .form-line {
+            min-height: 20px;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .currency-box {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #000;
+            margin-right: 5px;
+            vertical-align: middle;
+            position: relative;
+        }
+        .currency-box.checked::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+        }
+        .currency-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+    </style>
+    <body>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="form-section">
+                        <h4 class="fw-bold mb-4">Details of the Account and Client</h4>
+
+                        <div class="mb-3">
+                            <label class="form-label">Name of Account</label>
+                            <div class="form-line {% if document_data.account.validation.account_no == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.account_no }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Account Holder's Name</label>
+                            <div class="form-line {% if document_data.account.validation.account_holder_name == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.account_holder_name }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Account Holder's Surname</label>
+                            <div class="form-line {% if document_data.account.validation.account_holder_surname == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.account_holder_surname }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Passport No/ Unique ID</label>
+                            <div class="form-line {% if document_data.passports.validation.passport_no == 0 %}invalid-field{% endif %}">
+                                {{ document_data.passports.fields.passport_no }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4 class="fw-bold mb-4">Reference Currency</h4>
+
+                        <div class="mb-3">
+                            <label class="form-label">Currency</label>
+                            <div class="form-line {% if document_data.account.validation.currency == 0 %}invalid-field{% endif %}">
+                                <div class="currency-item">
+                                    <div class="currency-box {% if document_data.account.fields.currency == 'CHF' %}checked{% endif %}"></div>
+                                    <span>CHF</span>
+                                </div>
+                                <div class="currency-item">
+                                    <div class="currency-box {% if document_data.account.fields.currency == 'EUR' %}checked{% endif %}"></div>
+                                    <span>EUR</span>
+                                </div>
+                                <div class="currency-item">
+                                    <div class="currency-box {% if document_data.account.fields.currency == 'USD' %}checked{% endif %}"></div>
+                                    <span>USD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4 class="fw-bold mb-4">Delivery of Communication</h4>
+
+                        <div class="mb-3">
+                            <label class="form-label">Building Number</label>
+                            <div class="form-line {% if document_data.account.validation.building_number == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.building_number }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Street Name</label>
+                            <div class="form-line {% if document_data.account.validation.street_name == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.street_name }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Postal Code</label>
+                            <div class="form-line {% if document_data.account.validation.postal_code == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.postal_code }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">City</label>
+                            <div class="form-line {% if document_data.account.validation.city == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.city }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Country</label>
+                            <div class="form-line {% if document_data.account.validation.country == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.country }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4 class="fw-bold mb-4">APPLICATION FOR E-BANKING</h4>
+
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <div class="form-line {% if document_data.account.validation.account_holder_name == 0 or document_data.account.validation.account_holder_surname == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.account_holder_name }} {{ document_data.account.fields.account_holder_surname }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <div class="form-line {% if document_data.account.validation.phone == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.phone }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <div class="form-line {% if document_data.account.validation.email == 0 %}invalid-field{% endif %}">
+                                {{ document_data.account.fields.email }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3 mt-4">
+                            <label class="form-label">Specimen Signature:</label>
+                            <div class="signature-box d-flex align-items-center justify-content-center">
+                                {% if document_data.passports.fields.signature %}
+                                    <img src="{{ document_data.passports.fields.signature }}" alt="Signature Sample" style="max-height: 70px;">
+                                {% else %}
+                                    <span>No signature available</span>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
 {% else %}
     <div class="alert alert-info">
         No data available for this document.
