@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Home - Julius Baer Document System{% endblock %}
+{% block title %}Home - TrueSight{% endblock %}
 
 {% block content %}
 <div class="header">
-    <div>Julius Baer Document System</div>
+    <div>TrueSight</div>
     <div>{% now "F j, Y" %}</div>
 </div>
 
@@ -37,12 +37,13 @@
             
             {% if document_status %}
                 {% if document_status.length != 0 and document_status.all_valid %}
-                    <div class="text-center mb-4">
+                <div class="text-center mb-4">
                         <i class="fas fa-check-circle fa-4x status-success" style="margin-bottom: 1rem;"></i>
                         <h4>All Documents Consistent</h4>
-                        <hr>
+                    <hr>
                         <p class="status-message">All documents are consistent with each other.</p>
-                    </div>
+                </div>
+
                 {% elif document_status.length != 0 and document_status.inconsistent %}
                     <div class="text-center mb-4">
                         <i class="fas fa-exclamation-triangle fa-4x status-warning" style="margin-bottom: 1rem;"></i>
@@ -51,13 +52,13 @@
                         <p class="status-message">{{ document_status.message }}</p>
                     </div>
                 {% else %}
-                    <div class="text-center mb-4">
+                <div class="text-center mb-4">
                         <i class="fas fa-clock fa-4x status-info " style="margin-bottom: 1rem;"></i>
                         <h4>Under Review</h4>
-                        <hr>
+                    <hr>
                         <p class="status-message">Document consistency check is currently in progress. Please check back later.</p>
-                    </div>
-                {% endif %}
+                </div>
+            {% endif %}
             {% else %}
                 <div class="text-center">
                     <i class="fas fa-clock fa-4x status-info " style="margin-bottom: 1rem;"></i>

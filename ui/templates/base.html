@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Julius Baer Document System{% endblock %}</title>
+    <title>{% block title %}TrueSight{% endblock %}</title>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -392,6 +392,18 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .error-field {
+            color: var(--danger-color);
+            background-color: rgba(220, 53, 69, 0.08);
+            border-color: rgba(220, 53, 69, 0.2);
+        }
+
+        .error-text {
+            color: var(--danger-color);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
@@ -401,7 +413,7 @@
         <div class="sidebar-header">
             <a href="{% url 'ui:home' %}" class="nav-item nav-link">
                 <i class="fas fa-home"></i>
-                <h3>Julius Baer</h3>
+                <h3>TrueSight</h3>
             </a>
         </div>
         <div class="nav flex-column">
@@ -432,7 +444,6 @@
         </div>
         
         <div class="footer">
-            <p>© {% now "Y" %} Bank Julius Baer & Co. Ltd. All Rights Reserved.</p>
             <p>This document is a simplified representation for project purposes only.</p>
         </div>
     </main>
